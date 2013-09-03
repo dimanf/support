@@ -14,7 +14,7 @@ class Ticket(models.Model):
 			('end_process', u'Завершена')
 		)
 
-	issue_created_by_user = models.ForeignKey(User, related_name='u+', verbose_name=u'Завка от пользователя', blank=True)
+	issue_created_by_user = models.ForeignKey(User, related_name='u+', verbose_name=u'Завка от пользователя')
 	issue_operator = models.ManyToManyField(User, related_name='ref+', verbose_name=u'Заявку принял(и)')
 	nomber_of_issue = models.CharField(u'Номер заявки', max_length=30, null=True, blank=True, unique=True)
 	date_create = models.DateTimeField('Дата создания', auto_now_add=True)
