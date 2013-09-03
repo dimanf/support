@@ -6,6 +6,8 @@ Support
 - $ pip install django-bootstrap-form
 - $ pip install django-simple-history
 
+Полный список зависимостей содержится в файле - requirements.txt
+
 В данном проекте можно:
 
 - Сздавать тикет
