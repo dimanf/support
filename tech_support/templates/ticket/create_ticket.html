@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load bootstrap %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+	<div class="container-fluid">
+		<style type="text/css">
+			.form-control{
+				width: 555px;
+			}
+		</style>
+		<h3>Создать тикет</h3>
+        <form id="" action="" method="post">{% csrf_token %}
+            {{ ticket_form|bootstrap }}
+            <div class="form-actions">
+                <input type="submit" class="btn btn-primary" value="Сохранить" />
+                <a class="btn" href="/">Отмена</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

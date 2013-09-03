@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+	<div class="container-fluid">
+		<div class="container-fluid">
+			<h3 class="p1">Тикеты</h3>
+		    {% for ticket in object_list %}
+		    	<p style="float: right;"><b>{{ ticket.date_create|date:"d M Y" }}</b></p>
+		        <div id="ticket">
+		            <a href="{{ ticket.id }}"><h3 class="p2">Заявка № {{ ticket.nomber_of_issue }}</h3></a>
+		            {% autoescape off %}
+		                <p class="p2">{{ ticket.issue_descr|truncatewords_html:20 }}</p>
+		            {% endautoescape %}
+		            <a class="btn btn-primary" href="{{ ticket.id }}">Подробнее</a>
+		            <a class="btn" href="/change_ticket/{{ ticket.id }}/">Изменить</a>
+		            <hr>
+		        </div>
+		    {% empty %}
+		        <p class="p2">Пока тикетов нет.</p>
+		    {% endfor %}
+		</div>
+	</div>
+{% endblock %}

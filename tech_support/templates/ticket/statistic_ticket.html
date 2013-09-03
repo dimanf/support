@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% load bootstrap %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+
+        <style>
+            #filter p {
+                font-size: 90%;
+            }
+            #filter select {
+                font-size: 90%;
+            }
+
+            #filter label {
+                font-size: 90%;
+            }
+
+            #filter h5 {
+                margin-top: 18px;
+                font-size: 90%;
+            }
+
+            #filter .input-small {
+                font-size: 90%;
+                height: 18px;
+            }
+
+            #filter select {
+                height: 28px;
+            }
+        </style>
+
+
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span9">
+                    <h3>Статистика</h3>
+                </div>
+            </div>
+
+            <div class="row-fluid">
+                <div id="filter" class="span3">
+                    <p>Всего заявок: <b>{{ ticket_filtred.count }}</b></p>
+
+                    <hr>
+
+                    <h5>Количество непринятых заявок: {{ ticket_not_accept }}</h5>
+                    <h5>Количество заявок в процессе выполнения: {{ ticket_in_process }}</h5>
+                    <h5>Количество выполненых заявок: {{ ticket_end_process }}</h5>
+
+                    <hr>
+
+                    <form action="" method="get">
+                        {{ form }}
+                        <p><button class="btn" type="submit">Показать</button></p>
+                    </form>
+                </div>
+                <div class="span9">
+                    <div style="font-size: 90%;">
+                    	{% for ticket in ticket_filtred %}
+                    		<p style="float: right;"><b>{{ ticket.date_create|date:"d M Y" }}</b></p>
+					        <div id="ticket">
+					            <a href="/{{ ticket.id }}/"><h3 class="p2">Заявка № {{ ticket.nomber_of_issue }}</h3></a>
+					            {% autoescape off %}
+					                <p class="p2">{{ ticket.issue_descr|truncatewords_html:20 }}</p>
+					            {% endautoescape %}
+					            <a class="btn btn-primary" href="/{{ ticket.id }}/">Подробнее</a>
+					            <a class="btn" href="/change_ticket/{{ ticket.id }}/">Изменить</a>
+					            <hr>
+					        </div>
+					    {% empty %}
+					    	<p>Пока что тикетов нет.</p>
+                    	{% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="padding-bottom: 30px;"></div>
+    </div>
+{% endblock %}

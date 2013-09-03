@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load bootstrap %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="container-fluid">
+        <style type="text/css">
+            .form-control{
+                width: 555px;
+            }
+        </style>
+        <form id="" action="" method="post">{% csrf_token %}
+            {{ change_form.issue_descr|bootstrap }}
+            <label class="control-label " for="id_oper">Назначить отдел: </label>
+            <div class="container-fluid">
+                {% for dept in dept_list %}
+                    {% if dept in ticket.dept.all %}
+                        <label for="{{ dept.auto_id }}">
+                            <input id="{{ dept.auto_id }}" name="dept" type="checkbox" checked="yes" value="{{ dept.id }}">
+                             {{ dept }}
+                        </label>
+                    {% else %}
+                        <label for="{{ dept.auto_id }}">
+                            <input id="{{ dept.auto_id }}" name="dept" type="checkbox" value="{{ dept.id }}">
+                             {{ dept }}
+                        </label>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <label class="control-label " for="id_oper">Назначить ответственным: </label>
+            <div class="container-fluid">
+                {% for oper in users_list %}
+                    {% if oper in ticket.issue_operator.all %}
+                        <label for="{{ oper.auto_id }}">
+                            <input id="{{ oper.auto_id }}" name="issue_operator" type="checkbox" checked="yes" value="{{ oper.id }}">
+                             {{ oper }}
+                        </label>
+                    {% else %}
+                        <label for="{{ oper.auto_id }}">
+                            <input id="{{ oper.auto_id }}" name="issue_operator" type="checkbox" value="{{ oper.id }}">
+                             {{ oper }}
+                        </label>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="form-actions">
+                <input type="submit" class="btn btn-primary" value="Сохранить" />
+                <a class="btn" href="/{{ ticket.id }}/">Отмена</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

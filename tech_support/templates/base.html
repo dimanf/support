@@ -1,0 +1,23 @@
+<html>
+<head>
+	<title>{% block title %}{% endblock %}</title>
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<link href="{{ STATIC_URL }}css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<script src="{{ STATIC_URL }}js/bootstrap.min.js" type="text/javascript"></script>
+</head>
+<body>
+	<div class="container">
+		<div class="navbar">
+		  <div class="navbar-inner">
+		    <a class="brand" href="/">Техподдержка</a>
+		    <ul class="nav">
+		      <li {% if path == '' %}class="active"{% endif %}><a href="/">Тикеты</a></li>
+		      <li {% if path == 'create_ticket' %}class="active"{% endif %}><a href="/create_ticket/">Создать тикет</a></li>
+		      <li {% if path == 'statistic' %}class="active"{% endif %}><a href="/statistic/">Статистика</a></li>
+		    </ul>
+		  </div>
+		</div>
+		{% block content %}{% endblock %}
+	</div>
+</body>
+</html>

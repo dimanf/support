@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load bootstrap %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+	<div class="container-fluid">
+		<style type="text/css">
+			.form-control{
+				width: 555px;
+			}
+		</style>
+		<h3 class="p1">Тикет №{{ ticket.nomber_of_issue }}</h3>
+	        <div id="ticket">
+	            <p style="float: right;"><b>{{ ticket.date_create|date:"d M Y" }}</b></p>
+	            <hr>
+		            {% autoescape off %}
+		                <p class="p2">{{ ticket.issue_descr }}</p>
+		            {% endautoescape %}
+	            <hr>
+	            	<p>
+	            		<b>Отдел(ы): </b>
+	            		{% for dept in ticket.dept.all %}
+	            			<span class="label label-success">{{ dept }}</span>
+	            		{% empty %}
+	            			<p>Пока что отделов нет.</p>
+	            		{% endfor %}
+	            	</p>
+	            <hr>
+	            	<p>
+	            		<b>Заявка обрабатывается операторами:
+	            			{% for opers in ticket.issue_operator.all %}
+	            				<span class="label label-success">{{ opers }}</span>
+	            			{% endfor %}
+	            		</b>
+	            	</p>
+	            <hr>
+	            <hr>
+	            	<p>
+	            		<b>Статус заявки:
+	            			{{ ticket.get_status }}
+	            		</b>
+	            	</p>
+	            <hr>
+	            <a class="btn" href="/change_ticket/{{ ticket.id }}/">Изменить</a>
+	            	<h3>Комментарии</h3>
+	            	{% for comments in ticket.get_comments %}
+		            	<blockquote>
+		            		<p><b>{{ comments.date_create|date:"d M Y" }}</b></p>
+		            		<p>{{ comments.text }}</p>
+		            	</blockquote>
+		            {% empty %}
+			            <blockquote>
+			            	<p>Пока комментариев нет.</p>
+			            </blockquote>
+	            	{% endfor %}
+	            	<form id="" action="" method="post">{% csrf_token %}
+			            {{ comment_form|bootstrap }}
+			            <div class="form-actions">
+			                <input type="submit" class="btn btn-primary" value="Комментировать" />
+			                <a class="btn" href="/">Отмена</a>
+			            </div>
+			        </form>
+	        </div>
+	</div>
+</div>
+{% endblock %}
